@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dash+ — простой раннер с редактором уровней</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Dash+</h1>
+      <div class="controls">
+        <button id="startBtn" title="Начать / продолжить (Enter)">Старт</button>
+        <button id="pauseBtn" title="Пауза (P)">Пауза</button>
+        <button id="resetBtn" title="Сбросить (R)">Сброс</button>
+
+        <label>
+          Скорость
+          <select id="difficultySelect" title="Скорость уровня">
+            <option value="0.8">Медленно (0.8x)</option>
+            <option value="1.0" selected>Нормально (1.0x)</option>
+            <option value="1.2">Быстро (1.2x)</option>
+            <option value="1.5">Жесть (1.5x)</option>
+          </select>
+        </label>
+
+        <label title="Тренировочный режим: чекпоинты (C)">
+          <input id="practiceToggle" type="checkbox" /> Практика
+        </label>
+
+        <label title="Звук">
+          <input id="audioToggle" type="checkbox" checked /> Звук
+        </label>
+
+        <label>
+          Игрок
+          <input id="playerColor" type="color" value="#34d399" />
+        </label>
+        <label>
+          Фон
+          <input id="bgColor" type="color" value="#0b1220" />
+        </label>
+        <label>
+          Препятствия
+          <input id="obstacleColor" type="color" value="#f59e0b" />
+        </label>
+
+        <label title="Редактор уровня (E)">
+          <input id="editorToggle" type="checkbox" /> Редактор
+        </label>
+      </div>
+    </header>
+
+    <main class="content">
+      <aside id="editorPanel" class="editor" hidden>
+        <div class="row">
+          <label>
+            Инструмент
+            <select id="toolSelect">
+              <option value="block" selected>Блок</option>
+              <option value="spike">Шип</option>
+              <option value="eraser">Ластик</option>
+            </select>
+          </label>
+        </div>
+        <div class="row">
+          <label style="flex:1">
+            Дистанция размещения
+            <input id="placeDistance" type="range" min="200" max="12000" step="20" value="1200" />
+          </label>
+          <span id="placeDistanceVal" class="mono">1200px</span>
+        </div>
+        <div class="row">
+          <button id="clearLevelBtn">Очистить</button>
+          <button id="saveLevelBtn">Сохранить</button>
+          <button id="loadLevelBtn">Загрузить</button>
+          <button id="exportLevelBtn" title="Скопируй JSON">Экспорт</button>
+        </div>
+        <textarea id="levelJson" class="mono" rows="6" placeholder="JSON уровня"></textarea>
+        <small>Клик по канвасу добавляет элемент. В ластике — удаляет. Шорткаты: C — чекпоинт, V — снять, Space — прыжок, Shift — рывок.</small>
+      </aside>
+
+      <section class="stage">
+        <canvas id="gameCanvas" width="960" height="540"></canvas>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>
+        Управление: Space/ЛКМ — прыжок • Shift — рывок • P — пауза • R — сброс • C — чекпоинт (в практике) • E — редактор • Enter — старт
+      </small>
+    </footer>
+
+    <script src="./game.js"></script>
+  </body>
+  </html>
+
